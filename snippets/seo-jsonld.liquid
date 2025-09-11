@@ -1,4 +1,5 @@
-{%- comment -%} Basic Organization + WebSite JSON-LD {%- endcomment -%}
+﻿{%- comment -%} Basic Organization + Website JSON-LD {%- endcomment -%}
+{%- capture search_target -%}{{ shop.url }}/search?q={search_term_string}{%- endcapture -%}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -16,7 +17,7 @@
   "url": {{ shop.url | json }},
   "potentialAction": {
     "@type": "SearchAction",
-    "target": {{ shop.url | append: "/search?q={search_term_string}" | json }},
+    "target": {{ search_target | json }},
     "query-input": "required name=search_term_string"
   }
 }
