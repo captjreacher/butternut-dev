@@ -1,0 +1,19 @@
+{% if template.name == 'product' %}
+<div id="bn-sticky-{{ section.id }}" class="bn-sticky-atc" hidden>
+  <div class="bn-title">{{ product.title }}</div>
+  <div class="bn-price">{{ product.selected_or_first_available_variant.price | money }}</div>
+  <button class="button" id="bn-sticky-btn-{{ section.id }}">{{ section.settings.label }}</button>
+</div>
+<script src="{{ 'sticky-atc.js' | asset_url }}" defer></script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Sticky add to cart",
+  "enabled_on": { "templates": ["product"] },
+  "settings": [
+    { "type": "text", "id": "label", "label": "Button label", "default": "Add to cart" }
+  ],
+  "presets": [{ "name": "Sticky add to cart" }]
+}
+{% endschema %}
