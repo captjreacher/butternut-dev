@@ -8,7 +8,7 @@
   <link rel="canonical" href="{{ canonical_url }}">
     {%- comment %} Dev theme: prevent indexing {%- endcomment -%}
   <meta name="robots" content="noindex, nofollow">
-    {%- render 'seo-jsonld' -%}
+    {% render 'seo-jsonld' %}
 
   {%- if settings.favicon != blank -%}
     <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
