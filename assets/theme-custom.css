@@ -1,1 +1,48 @@
-/* Put quick visual tweaks here */
+/* === Butternut – visual system (Dev) ================================== */
+:root{
+    --bn-radius: 14px;
+    --bn-radius-lg: 24px;
+    --bn-gap: 1.25rem;
+    --bn-shadow: 0 10px 30px rgba(0,0,0,.08);
+  }
+  
+  /* Buttons */
+  .button, .shopify-challenge__button, button[is="button-primary"]{
+    border-radius: var(--bn-radius-lg)!important;
+    padding-inline: 1.25rem!important;
+    letter-spacing:.02em;
+  }
+  .button--secondary{ box-shadow: inset 0 0 0 2px currentColor; background:transparent; }
+  
+  /* Cards / tiles */
+  .card, .collection, .product-card-wrapper, .facets-container{
+    border-radius: var(--bn-radius);
+    overflow: clip;
+    box-shadow: var(--bn-shadow);
+  }
+  
+  /* Product cards: show quick-add on hover (desktop) */
+  @media (hover:hover){
+    .card--standard .quick-add{ opacity:0; transform: translateY(4px); transition:.2s ease; }
+    .card--standard:hover .quick-add{ opacity:1; transform:none; }
+  }
+  
+  /* Header polish */
+  header.header{ backdrop-filter: saturate(180%) blur(10px); background: rgba(255,255,255,.92); }
+  
+  /* Typography tweaks */
+  h1,h2,h3{ letter-spacing: -.02em; }
+  .container{ gap: var(--bn-gap); }
+  
+  /* Section paddings */
+  .section{ padding-block: clamp(2.0rem, 3vw, 3.6rem); }
+  
+  /* Sticky add-to-cart bar (section below) */
+  .bn-sticky-atc{ position:fixed; left:0; right:0; bottom:0; z-index:70;
+    display:flex; gap:.75rem; align-items:center; padding:.75rem 1rem;
+    background:rgba(255,255,255,.98); box-shadow:0 -8px 24px rgba(0,0,0,.08); transform:translateY(100%);
+    transition:transform .25s ease;
+  }
+  .bn-sticky-atc.is-visible{ transform:none; }
+  .bn-sticky-atc .bn-price{ margin-inline:auto; font-weight:600; }
+  /* Put quick visual tweaks here */
