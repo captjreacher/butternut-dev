@@ -1,0 +1,23 @@
+{%- comment -%} Basic Organization + WebSite JSON-LD {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": {{ shop.name | json }},
+  "url": {{ shop.url | json }},
+  "logo": {{ settings.logo | image_url: width: 512 | json }},
+  "sameAs": []
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "url": {{ shop.url | json }},
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {{ shop.url | append: "/search?q={search_term_string}" | json }},
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
