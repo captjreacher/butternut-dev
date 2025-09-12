@@ -2,11 +2,15 @@
 <html class="js" lang="{{ request.locale.iso_code }}">
 {{ 'theme-custom.css' | asset_url | stylesheet_tag }} 
 <head>
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'theme-custom.css' | asset_url | stylesheet_tag }}
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
+    <meta name="robots" content="noindex, nofollow">
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
@@ -35,7 +39,6 @@
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
-
     {%- if settings.animations_reveal_on_scroll -%}
       <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
@@ -189,9 +192,6 @@
         --text-boxes-radius: {{ settings.text_boxes_radius }}px;
         --text-boxes-shadow-opacity: {{ settings.text_boxes_shadow_opacity | divided_by: 100.0 }};
         --text-boxes-shadow-visible: {% if settings.text_boxes_shadow_opacity > 0 %}1{% else %}0{% endif %};
-        --text-boxes-shadow-horizontal-offset: {{ settings.text_boxes_shadow_horizontal_offset }}px;
-        --text-boxes-shadow-vertical-offset: {{ settings.text_boxes_shadow_vertical_offset }}px;
-        --text-boxes-shadow-blur-radius: {{ settings.text_boxes_shadow_blur }}px;
 
         --buttons-radius: {{ settings.buttons_radius }}px;
         --buttons-radius-outset: {% if settings.buttons_radius > 0 %}{{ settings.buttons_radius | plus: settings.buttons_border_thickness }}{% else %}0{% endif %}px;
@@ -225,9 +225,7 @@
 
       *,
       *::before,
-      *::after {
-        box-sizing: inherit;
-      }
+      *::after { box-sizing: inherit; }
 
       html {
         box-sizing: border-box;
@@ -236,7 +234,7 @@
       }
 
       body {
-        	display: grid;
+        display: grid;
         grid-template-rows: auto auto 1fr auto;
         grid-template-columns: 100%;
         min-height: 100%;
@@ -250,13 +248,13 @@
       }
 
       @media screen and (min-width: 750px) {
-        body {
-          font-size: 1.6rem;
-        }
+        body { font-size: 1.6rem; }
       }
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {# keep custom CSS AFTER base.css so it overrides Dawn #}
+    {{ 'theme-custom.css' | asset_url | stylesheet_tag }}
 
     {%- if settings.cart_type == 'drawer' -%}
       {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
@@ -287,12 +285,8 @@
         rel="stylesheet"
         href="{{ 'component-predictive-search.css' | asset_url }}"
         media="print"
-        onload="this.media='all'"
-      >
+        onload="this.media='all'">
     {%- endif -%}
-
-	<link rel="stylesheet" href="{{ 'theme-custom.css' | asset_url }}">
-	<meta name="robots" content="noindex, nofollow">
 
     <script>
       if (Shopify.designMode) {
@@ -373,8 +367,10 @@
     {%- endif -%}
 
     {%- if settings.cart_type == 'drawer' -%}
-      <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+  <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    {% render 'dev-badge' %}
+
   </body>
-{% render 'dev-badge' %}
 </html>
