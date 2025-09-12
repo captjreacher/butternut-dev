@@ -172,20 +172,20 @@
         "collection-0": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "fitted-flat-night-nappies"
           }
         },
         "product": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "butternut-fitted-nappy-bamboo-cotton",
             "second_image": false
           }
         },
         "collection-1": {
           "type": "collection",
           "settings": {
-            "collection": ""
+            "collection": "2-fitteds-for-49"
           }
         }
       },
@@ -211,6 +211,7 @@
         "heading": "",
         "heading_size": "h1",
         "enable_video_looping": false,
+        "video": "shopify://files/videos/BUTTERNUTBABY.mp4",
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "description": "",
         "full_width": false,
