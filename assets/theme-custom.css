@@ -7,12 +7,32 @@ html::before{
 }
 /* === Butternut – visual system (Dev) ================================== */
 :root{
-  --bn-primary: #1E3A8A;   /* brand button color */
-  --bn-accent:  #EC4899;   /* accent */
+  --bn-primary:#1E3A8A;  /* blue */
+  --bn-accent:#EC4899;   /* pink */
 }
-.button:not(.button--secondary){ background: var(--bn-primary); }
-a.link, .link{ color: var(--bn-primary); }
 
+/* Primary buttons (CTA, PDP Add to cart, cart checkout) */
+.button:not(.button--secondary),
+.product-form__submit,
+.cart__checkout-button,
+.shopify-challenge__button,
+.shopify-payment-button__button--unbranded{
+  background: var(--bn-primary) !important;
+  border-color: var(--bn-primary) !important;
+  color:#fff !important;
+}
+
+/* Links */
+a, .link{ color: var(--bn-primary) !important; }
+
+/* Sale accents / badges */
+.price--on-sale .price-item--sale,
+.badge--sale{ color: var(--bn-accent) !important; }
+
+/* Optional: outline buttons to match brand */
+.button--secondary{
+  border-color: var(--bn-primary) !important;
+  color: var(--bn-primary) !important;  }
   
   /* Buttons */
   .button, .shopify-challenge__button, button[is="button-primary"]{
