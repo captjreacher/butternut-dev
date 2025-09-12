@@ -1,92 +1,207 @@
 /* ==================================================================== */
-/* Butternut — brand tokens + Dawn token mapping (Dev)                  */
+/* Butternut — CSS-only brand control for Dawn                          */
+/* No dependency on Brand/Theme settings                                 */
 /* ==================================================================== */
 
-/* 1) Brand tokens (define raw triplets + usable color variables) */
+/* 1) Brand tokens (hard palette) */
 :root{
-  --bn-primary-raw: 30,58,138;  /* #1E3A8A */
-  --bn-accent-raw:  236,72,153; /* #EC4899 */
+  /* Raw triplets (so we can feed Dawn’s vars directly) */
+  --bn-primary-raw: 30,58,138;   /* #1E3A8A */
+  --bn-accent-raw:  236,72,153;  /* #EC4899 */
+  --bn-text-raw:    17,24,39;    /* #111827 */
+  --bn-bg-raw:      255,255,255; /* #FFFFFF */
 
-  /* Convenience vars you can use directly in normal CSS */
+  /* Usable rgb() forms */
   --bn-primary: rgb(var(--bn-primary-raw));
   --bn-accent:  rgb(var(--bn-accent-raw));
+  --bn-text:    rgb(var(--bn-text-raw));
+  --bn-bg:      rgb(var(--bn-bg-raw));
 
-  /* Small design tokens for your tweaks */
+  /* Shape & effects */
   --bn-radius: .75rem;
-  --bn-radius-lg: .9rem;
   --bn-shadow: 0 6px 18px rgba(0,0,0,.08);
+  --bn-shadow-sm: 0 3px 10px rgba(0,0,0,.06);
   --bn-gap: 1.25rem;
 }
 
-/* 2) Map your brand to Dawn’s design tokens (keep as raw triplets)    */
-/*    Scope to :root and to any color-scheme wrapper Dawn applies.     */
+/* 2) Force-map to Dawn tokens (overrides theme editor palettes) */
 :root,
 [class*="color-"]{
+  --color-foreground:           var(--bn-text-raw);
+  --color-background:           var(--bn-bg-raw);
+
   --color-link:                 var(--bn-primary-raw);
+
   --color-button:               var(--bn-primary-raw);
   --color-button-text:          255,255,255;
 
-  --color-secondary-button:     var(--bn-accent-raw);
-  --color-secondary-button-text:255,255,255;
+  --color-secondary-button:     var(--bn-primary-raw);
+  --color-secondary-button-text:30,58,138; /* outline look, text matches border */
 
-  /* Nice-to-have accents */
   --color-badge-background:     var(--bn-accent-raw);
   --color-badge-foreground:     255,255,255;
+
+  --color-foreground-outline:   var(--bn-primary-raw);
 }
 
-/* 3) Light-touch component polish (no heavy !important needed) */
+/* Make sure base surfaces/text follow our palette */
+body{
+  color: var(--bn-text);
+  background: var(--bn-bg);
+}
+
+/* 3) Global polish */
+h1,h2,h3{ letter-spacing: -.02em; }
+a,.link,.button--link{
+  color: var(--bn-primary);
+  text-underline-offset: 2px;
+}
+a:hover,.link:hover,.button--link:hover{
+  color: color-mix(in srgb, var(--bn-primary), #000 14%);
+  text-decoration: underline;
+}
+
+.container{ gap: var(--bn-gap); }
+.section{ padding-block: clamp(2rem, 3vw, 3.4rem); }
+
+/* 4) Header */
+header.header{
+  backdrop-filter: saturate(180%) blur(10px);
+  background: rgba(255,255,255,.92);
+}
+
+/* 5) Buttons (primary + outline secondary) */
+.button{
+  border-radius: var(--bn-radius);
+  transition: background-color .18s ease, border-color .18s ease, transform .08s ease;
+  box-shadow: var(--bn-shadow-sm);
+  will-change: transform;
+}
+.button:active{ transform: translateY(1px); }
+
+/* Primary */
 .button:not(.button--secondary){
   background-color: var(--bn-primary);
   border-color: var(--bn-primary);
+  color: #fff;
 }
 .button:not(.button--secondary):hover{
   background-color: color-mix(in srgb, var(--bn-primary), #000 12%);
+  border-color: color-mix(in srgb, var(--bn-primary), #000 12%);
 }
 
-a, .link, .button--link{ color: var(--bn-primary); }
-
+/* Secondary = outline */
 .button--secondary{
-  color: var(--bn-primary);
-  border-color: var(--bn-primary);
   background: transparent;
+  color: var(--bn-primary);
+  border-color: currentColor;
   box-shadow: inset 0 0 0 2px currentColor;
 }
+.button--secondary:hover{
+  color: color-mix(in srgb, var(--bn-primary), #000 12%);
+}
 
-/* Sale accents / badges */
-.price--on-sale .price-item--sale,
-.badge--sale{ color: var(--bn-accent); }
+/* 6) Inputs/focus */
+.field__input, input, select, textarea{
+  border-radius: calc(var(--bn-radius) - 2px);
+}
+:where(input, select, textarea, .field__input):focus{
+  outline: 2px solid var(--bn-primary);
+  outline-offset: 1px;
+}
 
-/* Cards / tiles */
-.card, .collection, .product-card-wrapper, .facets-container{
+/* 7) Cards/tiles */
+.card,.collection,.product-card-wrapper,.facets-container{
   border-radius: var(--bn-radius);
   overflow: clip;
   box-shadow: var(--bn-shadow);
 }
-
-/* Product cards: show quick-add on hover (desktop) */
 @media (hover:hover){
+  .card{ transition: transform .16s ease, box-shadow .16s ease; }
+  .card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  }
   .card--standard .quick-add{
     opacity: 0; transform: translateY(4px); transition: .2s ease;
   }
   .card--standard:hover .quick-add{ opacity: 1; transform: none; }
 }
 
-/* Header polish */
-header.header{
-  backdrop-filter: saturate(180%) blur(10px);
-  background: rgba(255,255,255,.92);
+/* 8) Accents (sale/new) */
+.price--on-sale .price-item--sale,
+.badge--sale,.badge--new{ color: var(--bn-accent); }
+.badge,.badge--sale,.badge--new{
+  border-radius: 999px;
+  font-weight: 600;
+  padding-inline: .6em;
 }
 
-/* Typography + spacing */
-h1,h2,h3{ letter-spacing: -.02em; }
-.container{ gap: var(--bn-gap); }
-.section{ padding-block: clamp(2rem, 3vw, 3.6rem); }
-
-/* Optional: quick debug flag — toggle from console:
-   document.documentElement.toggleAttribute('data-dev') */
-html[data-dev]::after{
-  content:"theme-custom.css loaded";
-  position:fixed; right:.5rem; bottom:.5rem;
-  background:#000; color:#fff; padding:.25rem .5rem;
-  font:600 12px/1 system-ui; z-index:99999; opacity:.7; pointer-events:none;
+/* 9) Pagination */
+.pagination__item--current,
+.pagination__item[aria-current="page"]{
+  background: var(--bn-primary);
+  color: #fff;
+  border-color: var(--bn-primary);
 }
+
+/* 10) Footer — slimmer/cleaner */
+.footer{
+  --footer-pad-y: 22px;
+  --footer-heading: 1.25rem;
+  --footer-text: 1.4rem;
+  --footer-muted: .85;
+}
+.footer__content-top{ padding-block: var(--footer-pad-y); }
+.footer__content-bottom{ padding-block: 12px; font-size: var(--footer-text); opacity: var(--footer-muted); }
+.footer__blocks > .grid { gap: 1rem 1.5rem; }
+.footer-block__heading{
+  font-weight: 600;
+  font-size: var(--footer-heading);
+  letter-spacing: .01em;
+  margin: 0 0 .5rem;
+}
+.footer-block--menu ul li + li { margin-top: .35rem; }
+.list-payment__item svg { width: 28px; height: auto; opacity: .9; }
+
+/* 11) Filters/chips */
+.facets__disclosure,.facets__summary{ border-radius: var(--bn-radius); }
+.active-facets__button{
+  border-radius: 999px;
+  border-color: rgba(0,0,0,.1);
+}
+.active-facets__button:hover{ border-color: rgba(0,0,0,.2); }
+
+/* 12) Optional: system dark-mode (pure CSS) */
+@media (prefers-color-scheme: dark){
+  :root{
+    --bn-primary-raw: 165,180,252;  /* softer indigo on dark */
+    --bn-accent-raw:  244,114,182;  /* softer pink on dark */
+    --bn-text-raw:    229,231,235;  /* light gray */
+    --bn-bg-raw:      11,15,26;     /* deep navy-ish */
+    --bn-primary: rgb(var(--bn-primary-raw));
+    --bn-accent:  rgb(var(--bn-accent-raw));
+    --bn-text:    rgb(var(--bn-text-raw));
+    --bn-bg:      rgb(var(--bn-bg-raw));
+  }
+  :root,[class*="color-"]{
+    --color-foreground: var(--bn-text-raw);
+    --color-background: var(--bn-bg-raw);
+    --color-link:       var(--bn-primary-raw);
+    --color-button:     var(--bn-primary-raw);
+    --color-button-text:17,24,39;
+    --color-secondary-button: var(--bn-primary-raw);
+    --color-secondary-button-text:165,180,252;
+    --color-badge-background: var(--bn-accent-raw);
+    --color-badge-foreground: 17,24,39;
+  }
+  body{ color: var(--bn-text); background: var(--bn-bg); }
+  header.header{ background: rgba(15,23,42,.85); backdrop-filter: saturate(160%) blur(10px); }
+  .card,.collection,.product-card-wrapper,.facets-container{
+    background: #0f172a; box-shadow: 0 6px 18px rgba(0,0,0,.4);
+  }
+  .footer{ --footer-muted: .9; background: #0b1020; color: var(--bn-text); }
+}
+
+/* 13) Remove any old debug canary that was pinned to the page */
+html::after{ content: none !important; }
