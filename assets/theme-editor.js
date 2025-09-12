@@ -1,54 +1,53 @@
-function hideProductModal() {
-  const productModal = document.querySelectorAll('product-modal[open]');
-  productModal && productModal.forEach((modal) => modal.hide());
-}
+// assets/theme-editor.js (refined but equivalent)
 
-document.addEventListener('shopify:block:select', function (event) {
-  hideProductModal();
-  const blockSelectedIsSlide = event.target.classList.contains('slideshow__slide');
-  if (!blockSelectedIsSlide) return;
+const hideProductModals = () => {
+  document.querySelectorAll('product-modal[open]')?.forEach(m => m.hide());
+};
 
-  const parentSlideshowComponent = event.target.closest('slideshow-component');
-  parentSlideshowComponent.pause();
+document.addEventListener('shopify:block:select', (event) => {
+  hideProductModals();
 
-  setTimeout(function () {
-    parentSlideshowComponent.slider.scrollTo({
-      left: event.target.offsetLeft,
-    });
+  const slide = event.target;
+  if (!slide.classList.contains('slideshow__slide')) return;
+
+  const slideshow = slide.closest('slideshow-component');
+  if (!slideshow) return;
+
+  slideshow.pause?.();
+  // Scroll to the selected slide after the editor focuses it
+  setTimeout(() => {
+    slideshow.slider?.scrollTo({ left: slide.offsetLeft });
   }, 200);
 });
 
-document.addEventListener('shopify:block:deselect', function (event) {
-  const blockDeselectedIsSlide = event.target.classList.contains('slideshow__slide');
-  if (!blockDeselectedIsSlide) return;
-  const parentSlideshowComponent = event.target.closest('slideshow-component');
-  if (parentSlideshowComponent.autoplayButtonIsSetToPlay) parentSlideshowComponent.play();
+document.addEventListener('shopify:block:deselect', (event) => {
+  const slide = event.target;
+  if (!slide.classList.contains('slideshow__slide')) return;
+
+  const slideshow = slide.closest('slideshow-component');
+  if (slideshow?.autoplayButtonIsSetToPlay) slideshow.play?.();
 });
 
 document.addEventListener('shopify:section:load', () => {
-  hideProductModal();
-  const zoomOnHoverScript = document.querySelector('[id^=EnableZoomOnHover]');
-  if (!zoomOnHoverScript) return;
-  if (zoomOnHoverScript) {
-    const newScriptTag = document.createElement('script');
-    newScriptTag.src = zoomOnHoverScript.src;
-    zoomOnHoverScript.parentNode.replaceChild(newScriptTag, zoomOnHoverScript);
-  }
+  hideProductModals();
+  // Re-run zoom-on-hover script if present
+  const zoomScript = document.querySelector('[id^="EnableZoomOnHover"]');
+  if (zoomScript) zoomScript.replaceWith(zoomScript.cloneNode(true));
 });
 
 document.addEventListener('shopify:section:unload', (event) => {
-  document.querySelectorAll(`[data-section="${event.detail.sectionId}"]`).forEach((element) => {
-    element.remove();
-    document.body.classList.remove('overflow-hidden');
-  });
+  const id = event?.detail?.sectionId;
+  if (!id) return;
+
+  document.querySelectorAll(`[data-section="${id}"]`).forEach(el => el.remove());
+  document.body.classList.remove('overflow-hidden');
 });
 
-document.addEventListener('shopify:section:reorder', () => hideProductModal());
-
-document.addEventListener('shopify:section:select', () => hideProductModal());
-
-document.addEventListener('shopify:section:deselect', () => hideProductModal());
-
-document.addEventListener('shopify:inspector:activate', () => hideProductModal());
-
-document.addEventListener('shopify:inspector:deactivate', () => hideProductModal());
+// Keep the rest as simple no-ops that just close modals
+[
+  'shopify:section:reorder',
+  'shopify:section:select',
+  'shopify:section:deselect',
+  'shopify:inspector:activate',
+  'shopify:inspector:deactivate'
+].forEach(evt => document.addEventListener(evt, hideProductModals));

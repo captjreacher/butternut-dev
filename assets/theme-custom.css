@@ -1,100 +1,92 @@
-/* DEV check — remove later */
-html::before{
-  content:"custom css loaded";
-  position:fixed;bottom:.5rem;right:.5rem;
-  background:#000;color:#fff;padding:.25rem .5rem;
-  font:600 12px/1 system-ui;z-index:99999;opacity:.7
-}
-/* Put brand colours as r,g,b triplets */
-:root {
-  --bn-primary-rgb: 30, 58, 138;    /* brand blue (R,G,B) */
-  --bn-accent-rgb:  236, 72, 153;   /* brand pink (R,G,B) */
+/* ==================================================================== */
+/* Butternut — brand tokens + Dawn token mapping (Dev)                  */
+/* ==================================================================== */
 
-  /* Map Dawn’s colour variables to your palette */
-  --color-button:            var(--bn-primary-rgb);
-  --color-button-text:       255, 255, 255;
-  --color-link:              var(--bn-primary-rgb);
-
-  --color-secondary-button:        var(--bn-accent-rgb);
-  --color-secondary-button-text:   255, 255, 255;
-}
-
-
-/* Prefer overriding Dawn's own tokens (used by buttons/links) */
+/* 1) Brand tokens (define raw triplets + usable color variables) */
 :root{
-  --color-button: 30,58,138;         /* rgb of #1E3A8A (no rgb()) */
-  --color-button-text: 255,255,255;
-  --color-link: 30,58,138;
+  --bn-primary-raw: 30,58,138;  /* #1E3A8A */
+  --bn-accent-raw:  236,72,153; /* #EC4899 */
+
+  /* Convenience vars you can use directly in normal CSS */
+  --bn-primary: rgb(var(--bn-primary-raw));
+  --bn-accent:  rgb(var(--bn-accent-raw));
+
+  /* Small design tokens for your tweaks */
+  --bn-radius: .75rem;
+  --bn-radius-lg: .9rem;
+  --bn-shadow: 0 6px 18px rgba(0,0,0,.08);
+  --bn-gap: 1.25rem;
 }
 
-/* Some sections set their own color-scheme on wrappers; bump scope */
+/* 2) Map your brand to Dawn’s design tokens (keep as raw triplets)    */
+/*    Scope to :root and to any color-scheme wrapper Dawn applies.     */
+:root,
 [class*="color-"]{
-  --color-button: 30,58,138;
-  --color-button-text: 255,255,255;
-  --color-link: 30,58,138;
+  --color-link:                 var(--bn-primary-raw);
+  --color-button:               var(--bn-primary-raw);
+  --color-button-text:          255,255,255;
+
+  --color-secondary-button:     var(--bn-accent-raw);
+  --color-secondary-button-text:255,255,255;
+
+  /* Nice-to-have accents */
+  --color-badge-background:     var(--bn-accent-raw);
+  --color-badge-foreground:     255,255,255;
 }
 
-/* Fallback hard overrides in case a section still wins */
+/* 3) Light-touch component polish (no heavy !important needed) */
 .button:not(.button--secondary){
-  background-color: var(--bn-primary) !important;
-  border-color: var(--bn-primary) !important;
+  background-color: var(--bn-primary);
+  border-color: var(--bn-primary);
 }
 .button:not(.button--secondary):hover{
-  background-color: color-mix(in srgb, var(--bn-primary), #000 10%) !important;
-}
-a, .link, .button--link{
-  color: var(--bn-primary) !important;
+  background-color: color-mix(in srgb, var(--bn-primary), #000 12%);
 }
 
-/* Links */
-a, .link{ color: var(--bn-primary) !important; }
+a, .link, .button--link{ color: var(--bn-primary); }
+
+.button--secondary{
+  color: var(--bn-primary);
+  border-color: var(--bn-primary);
+  background: transparent;
+  box-shadow: inset 0 0 0 2px currentColor;
+}
 
 /* Sale accents / badges */
 .price--on-sale .price-item--sale,
-.badge--sale{ color: var(--bn-accent) !important; }
+.badge--sale{ color: var(--bn-accent); }
 
-/* Optional: outline buttons to match brand */
-.button--secondary{
-  border-color: var(--bn-primary) !important;
-  color: var(--bn-primary) !important;  }
-  
-  /* Buttons */
-  .button, .shopify-challenge__button, button[is="button-primary"]{
-    border-radius: var(--bn-radius-lg)!important;
-    padding-inline: 1.25rem!important;
-    letter-spacing:.02em;
+/* Cards / tiles */
+.card, .collection, .product-card-wrapper, .facets-container{
+  border-radius: var(--bn-radius);
+  overflow: clip;
+  box-shadow: var(--bn-shadow);
+}
+
+/* Product cards: show quick-add on hover (desktop) */
+@media (hover:hover){
+  .card--standard .quick-add{
+    opacity: 0; transform: translateY(4px); transition: .2s ease;
   }
-  .button--secondary{ box-shadow: inset 0 0 0 2px currentColor; background:transparent; }
-  
-  /* Cards / tiles */
-  .card, .collection, .product-card-wrapper, .facets-container{
-    border-radius: var(--bn-radius);
-    overflow: clip;
-    box-shadow: var(--bn-shadow);
-  }
-  
-  /* Product cards: show quick-add on hover (desktop) */
-  @media (hover:hover){
-    .card--standard .quick-add{ opacity:0; transform: translateY(4px); transition:.2s ease; }
-    .card--standard:hover .quick-add{ opacity:1; transform:none; }
-  }
-  
-  /* Header polish */
-  header.header{ backdrop-filter: saturate(180%) blur(10px); background: rgba(255,255,255,.92); }
-  
-  /* Typography tweaks */
-  h1,h2,h3{ letter-spacing: -.02em; }
-  .container{ gap: var(--bn-gap); }
-  
-  /* Section paddings */
-  .section{ padding-block: clamp(2.0rem, 3vw, 3.6rem); }
-  
-  /* Sticky add-to-cart bar (section below) */
-  .bn-sticky-atc{ position:fixed; left:0; right:0; bottom:0; z-index:70;
-    display:flex; gap:.75rem; align-items:center; padding:.75rem 1rem;
-    background:rgba(255,255,255,.98); box-shadow:0 -8px 24px rgba(0,0,0,.08); transform:translateY(100%);
-    transition:transform .25s ease;
-  }
-  .bn-sticky-atc.is-visible{ transform:none; }
-  .bn-sticky-atc .bn-price{ margin-inline:auto; font-weight:600; }
-  /* Put quick visual tweaks here */
+  .card--standard:hover .quick-add{ opacity: 1; transform: none; }
+}
+
+/* Header polish */
+header.header{
+  backdrop-filter: saturate(180%) blur(10px);
+  background: rgba(255,255,255,.92);
+}
+
+/* Typography + spacing */
+h1,h2,h3{ letter-spacing: -.02em; }
+.container{ gap: var(--bn-gap); }
+.section{ padding-block: clamp(2rem, 3vw, 3.6rem); }
+
+/* Optional: quick debug flag — toggle from console:
+   document.documentElement.toggleAttribute('data-dev') */
+html[data-dev]::after{
+  content:"theme-custom.css loaded";
+  position:fixed; right:.5rem; bottom:.5rem;
+  background:#000; color:#fff; padding:.25rem .5rem;
+  font:600 12px/1 system-ui; z-index:99999; opacity:.7; pointer-events:none;
+}
