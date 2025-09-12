@@ -1,6 +1,4 @@
 {% comment %} Full-bleed hero with overlay + CTA {% endcomment %}
-"enabled_on": { "templates": ["index", "product", "collection", "page"] },
-<section id="hero-{{ section.id }}" class="bn-hero">
   <style>
     #hero-{{ section.id }}{position:relative;min-height:{{ section.settings.height }};display:grid;place-items:center;overflow:hidden}
     #hero-{{ section.id }} .bn-img{position:absolute;inset:0}
@@ -34,6 +32,8 @@
 {% schema %}
 {
   "name": "Hero – full bleed",
+  "enabled_on": { "templates": ["index", "product", "collection", "page"] },
+    <section id="hero-{{ section.id }}" class="bn-hero">
   "settings": [
     { "type":"image_picker","id":"image","label":"Desktop image" },
     { "type":"image_picker","id":"image_mobile","label":"Mobile image (optional)" },

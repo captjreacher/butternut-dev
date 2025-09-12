@@ -1,5 +1,4 @@
 <section id="usp-{{ section.id }}" class="bn-usp">
-"enabled_on": { "templates": ["index", "product", "collection", "page"] },
   <style>
     #usp-{{ section.id }}{background:{{ section.settings.bg }};color:{{ section.settings.text }}}
     #usp-{{ section.id }} .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
@@ -18,6 +17,7 @@
 </section>
 
 {% schema %}
+"enabled_on": { "templates": ["index", "product", "collection", "page"] },
 {
   "name":"USP strip",
   "settings":[
