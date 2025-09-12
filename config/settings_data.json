@@ -183,9 +183,9 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#334fb4",
+          "background": "#c8e8f6",
           "background_gradient": "",
-          "text": "#ffffff",
+          "text": "#1e3a8a",
           "button": "#ffffff",
           "button_label": "#334fb4",
           "secondary_button_label": "#ffffff",
