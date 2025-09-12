@@ -235,10 +235,45 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "usp_strip_pUfpw4": {
+      "type": "usp-strip",
+      "blocks": {
+        "usp_z4tg4C": {
+          "type": "usp",
+          "settings": {
+            "text": "Free shipping over $X"
+          }
+        },
+        "usp_9TTL6c": {
+          "type": "usp",
+          "settings": {
+            "text": "Free shipping over $X"
+          }
+        },
+        "usp_YrYCUb": {
+          "type": "usp",
+          "settings": {
+            "text": "Free shipping over $X"
+          }
+        }
+      },
+      "block_order": [
+        "usp_z4tg4C",
+        "usp_9TTL6c",
+        "usp_YrYCUb"
+      ],
+      "name": "USP strip",
+      "settings": {
+        "bg": "#111827",
+        "text": "#ffffff",
+        "icon_filter": "invert(1)"
+      }
     }
   },
   "order": [
     "hero_full_bleed_pcfgHr",
+    "usp_strip_pUfpw4",
     "image_banner",
     "rich_text",
     "featured_collection",
