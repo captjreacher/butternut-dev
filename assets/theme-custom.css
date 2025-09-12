@@ -1,3 +1,10 @@
+/* DEV check — remove later */
+html::before{
+  content:"custom css loaded";
+  position:fixed;bottom:.5rem;right:.5rem;
+  background:#000;color:#fff;padding:.25rem .5rem;
+  font:600 12px/1 system-ui;z-index:99999;opacity:.7
+}
 /* === Butternut – visual system (Dev) ================================== */
 :root{
   --bn-primary: #1E3A8A;   /* brand button color */
