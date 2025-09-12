@@ -5,21 +5,36 @@ html::before{
   background:#000;color:#fff;padding:.25rem .5rem;
   font:600 12px/1 system-ui;z-index:99999;opacity:.7
 }
-/* === Butternut – visual system (Dev) ================================== */
+/* === Brand tokens === */
 :root{
-  --bn-primary:#1E3A8A;  /* blue */
-  --bn-accent:#EC4899;   /* pink */
+  --bn-primary: #1E3A8A;   /* blue */
+  --bn-accent:  #EC4899;   /* pink */
 }
 
-/* Primary buttons (CTA, PDP Add to cart, cart checkout) */
-.button:not(.button--secondary),
-.product-form__submit,
-.cart__checkout-button,
-.shopify-challenge__button,
-.shopify-payment-button__button--unbranded{
-  background: var(--bn-primary) !important;
+/* Prefer overriding Dawn's own tokens (used by buttons/links) */
+:root{
+  --color-button: 30,58,138;         /* rgb of #1E3A8A (no rgb()) */
+  --color-button-text: 255,255,255;
+  --color-link: 30,58,138;
+}
+
+/* Some sections set their own color-scheme on wrappers; bump scope */
+[class*="color-"]{
+  --color-button: 30,58,138;
+  --color-button-text: 255,255,255;
+  --color-link: 30,58,138;
+}
+
+/* Fallback hard overrides in case a section still wins */
+.button:not(.button--secondary){
+  background-color: var(--bn-primary) !important;
   border-color: var(--bn-primary) !important;
-  color:#fff !important;
+}
+.button:not(.button--secondary):hover{
+  background-color: color-mix(in srgb, var(--bn-primary), #000 10%) !important;
+}
+a, .link, .button--link{
+  color: var(--bn-primary) !important;
 }
 
 /* Links */
