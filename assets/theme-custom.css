@@ -1,10 +1,11 @@
 /* === Butternut – visual system (Dev) ================================== */
 :root{
-    --bn-radius: 14px;
-    --bn-radius-lg: 24px;
-    --bn-gap: 1.25rem;
-    --bn-shadow: 0 10px 30px rgba(0,0,0,.08);
-  }
+  --bn-primary: #1E3A8A;   /* brand button color */
+  --bn-accent:  #EC4899;   /* accent */
+}
+.button:not(.button--secondary){ background: var(--bn-primary); }
+a.link, .link{ color: var(--bn-primary); }
+
   
   /* Buttons */
   .button, .shopify-challenge__button, button[is="button-primary"]{
