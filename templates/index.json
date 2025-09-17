@@ -17,14 +17,14 @@
         "image_mobile": "shopify://shop_images/family-laughing-with-holiday-lights.jpg",
         "eyebrow": "ButternutBaby",
         "title": "Our Latest Arrivals",
-        "subheading": "<p>vvvfvdv</p>",
+        "subheading": "<h2><strong>Sub-Heading</strong></h2>",
         "cta_label": "Shop now",
         "cta_link": "shopify://collections/all",
         "align": "center",
-        "text": "#ffffff",
+        "text": "#69263d",
         "overlay": "#ffd3e2",
-        "opacity": 0,
-        "height": "60vh"
+        "opacity": 90,
+        "height": "75vh"
       }
     },
     "usp_strip_pUfpw4": {
@@ -33,19 +33,20 @@
         "usp_z4tg4C": {
           "type": "usp",
           "settings": {
-            "text": "Free shipping over $X"
+            "text": "Free shipping on orders over $99 NZD*"
           }
         },
         "usp_9TTL6c": {
           "type": "usp",
           "settings": {
-            "text": "Free shipping over $X"
+            "icon": "shopify://shop_images/i-need-a-small-icon-image-for-my-free-shipping-banner.png",
+            "text": "Our New Store Launch 30th Oct"
           }
         },
         "usp_YrYCUb": {
           "type": "usp",
           "settings": {
-            "text": "Free shipping over $X"
+            "text": "Spring Specials Just In - $1m"
           }
         }
       },
@@ -57,7 +58,7 @@
       "name": "USP strip",
       "settings": {
         "bg": "#111827",
-        "text": "#ffffff",
+        "text": "#ffd3e2",
         "icon_filter": "invert(1)"
       }
     },

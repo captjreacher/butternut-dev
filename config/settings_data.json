@@ -139,12 +139,12 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#ffd3e2",
+          "background": "#69263d",
           "background_gradient": "linear-gradient(180deg, rgba(255, 211, 226, 1) 48%, rgba(99, 191, 234, 1) 100%)",
-          "text": "#1e3a8a",
-          "button": "{{ shop.brand.colors.primary[0].background }}",
+          "text": "#a8fffa",
+          "button": "#ffd3e2",
           "button_label": "#1e3a8a",
-          "secondary_button_label": "#ffd3e2",
+          "secondary_button_label": "#121212",
           "shadow": "#a8fffa"
         }
       },
