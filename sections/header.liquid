@@ -168,15 +168,16 @@
       {%- endif -%}
     {%- endif -%}
 
-    {%- liquid
-      if section.settings.menu != blank
-        if section.settings.menu_type_desktop == 'dropdown'
-          render 'header-dropdown-menu'
-        elsif section.settings.menu_type_desktop != 'drawer'
-          render 'header-mega-menu'
-        endif
-      endif
-    %}
+    {% if section.settings.menu_type_desktop == 'dropdown' %}
+      <div class="color-{{ section.settings.menu_color_scheme }} gradient">
+      {% render 'header-dropdown-menu' %}
+        </div>
+          {% elsif section.settings.menu_type_desktop != 'drawer' %}
+        <div class="color-{{ section.settings.menu_color_scheme }} gradient">
+          {% render 'header-mega-menu' %}
+        </div>
+    {% endif %}
+
 
     {%- if section.settings.logo_position == 'middle-center' -%}
       {%- if request.page_type == 'index' -%}
