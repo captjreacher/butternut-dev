@@ -44,11 +44,19 @@
   --color-foreground-outline:   var(--bn-primary-raw);
 }
 
-/* Make sure base surfaces/text follow our palette */
-body{
-  color: var(--bn-text);
-  background: var(--bn-bg);
+/* Force the header to use the selected color scheme background */
+.section-header .header-wrapper {
+  background: var(--gradient-background);
+  background-color: rgb(var(--color-background));
 }
+
+/* When sticky class kicks in, keep the background solid (not transparent) */
+.shopify-section-header-sticky .header-wrapper {
+  background: var(--gradient-background);
+  background-color: rgb(var(--color-background)) !important;
+  backdrop-filter: none;
+}
+
 
 /* 3) Global polish */
 h1,h2,h3{ letter-spacing: -.02em; }
