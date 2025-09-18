@@ -17,14 +17,14 @@
         "image_mobile": "shopify://shop_images/family-laughing-with-holiday-lights.jpg",
         "eyebrow": "ButternutBaby",
         "title": "Our Latest Arrivals",
-        "subheading": "<h2><strong>Sub-Heading</strong></h2>",
+        "subheading": "<p>vvvfvdv</p>",
         "cta_label": "Shop now",
         "cta_link": "shopify://collections/all",
         "align": "center",
-        "text": "#69263d",
+        "text": "#ffffff",
         "overlay": "#ffd3e2",
-        "opacity": 90,
-        "height": "75vh"
+        "opacity": 0,
+        "height": "60vh"
       }
     },
     "usp_strip_pUfpw4": {
@@ -33,20 +33,19 @@
         "usp_z4tg4C": {
           "type": "usp",
           "settings": {
-            "text": "Free shipping on orders over $99 NZD*"
+            "text": "Free shipping over $X"
           }
         },
         "usp_9TTL6c": {
           "type": "usp",
           "settings": {
-            "icon": "shopify://shop_images/i-need-a-small-icon-image-for-my-free-shipping-banner.png",
-            "text": "Our New Store Launch 30th Oct"
+            "text": "Free shipping over $X"
           }
         },
         "usp_YrYCUb": {
           "type": "usp",
           "settings": {
-            "text": "Spring Specials Just In - $1m"
+            "text": "Free shipping over $X"
           }
         }
       },
@@ -58,7 +57,7 @@
       "name": "USP strip",
       "settings": {
         "bg": "#111827",
-        "text": "#ffd3e2",
+        "text": "#ffffff",
         "icon_filter": "invert(1)"
       }
     },
@@ -76,24 +75,36 @@
           "type": "text",
           "settings": {
             "text": "Looking out for babies everywhere",
-            "text_style": "body"
+            "text_style": "subtitle"
+          }
+        },
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/nappies",
+            "button_style_secondary_1": false,
+            "button_label_2": "xvbgfbbg",
+            "button_link_2": "shopify://blogs/our-journey/hi-everyone",
+            "button_style_secondary_2": false
           }
         }
       },
       "block_order": [
         "heading",
-        "text"
+        "text",
+        "button"
       ],
       "settings": {
         "image": "shopify://shop_images/Screenshot_2025-09-12_183128.png",
         "image_2": "shopify://shop_images/Eco-FriendlyBabywipes_Flannelette.jpg",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
+        "image_overlay_opacity": 0,
+        "image_height": "medium",
         "image_behavior": "none",
         "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
         "stack_images_on_mobile": false,
         "mobile_content_alignment": "center",
         "show_text_below": false
